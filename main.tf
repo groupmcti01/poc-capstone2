@@ -1,8 +1,8 @@
 resource "google_storage_bucket" "capstone2_poc" {
-    name = mcti-capstone2-poc
-    location = var.location
-    project  = var.project_id
-    storage_class = "STANDARD"
+    name 		=  "mcti-capstone2-poc"
+    location 		= var.location
+    project  		= var.project_id
+    storage_class 	= "STANDARD"
 
     uniform_bucket_level_access = true
 
