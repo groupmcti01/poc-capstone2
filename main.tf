@@ -63,7 +63,7 @@ resource "google_cloud_scheduler_job" "mcit-capstone2-scheduler-workflow-poc" {
     ))
 
   oauth_token {
-    service_account_email   = data.google_compute_default_service_account.default.email ????
+    service_account_email   = data.google_compute_default_service_account.default.email
     scope                   = "https://www.googleapis.com/auth/cloud-platform"
   }
   }
