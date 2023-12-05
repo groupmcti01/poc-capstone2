@@ -78,7 +78,7 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
     env = "poc"
   }
   project         = var.project_id
-  source_contents = templatefile("$${path.module}/yamls/export.yaml",{})
+  source_contents = templatefile("${path.root}/yamls/export.yaml",{})
 }
 
 resource "time_sleep" "wait_60_seconds" {
