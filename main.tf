@@ -80,7 +80,7 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
   # result  = "result" })
 
   source_contents = <<-EOF
-  - initialize:
+- initialize:
     assign:
       - project: mcti-capstone2-testing
       - firestoreID: (default)
