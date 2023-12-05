@@ -64,7 +64,7 @@ resource "google_workflows_workflow" "mctit-capstone2-workflow-poc" {
   service_account = ""
   project         = ""
   labels          = ""
-  source_contents = ""
+  source_contents = templatefile("${path.root}/yamls/export.yaml")
 }
 
 resource "time_sleep" "wait_60_seconds" {
