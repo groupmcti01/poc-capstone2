@@ -36,34 +36,48 @@ data "google_compute_default_service_account" "default" {
   project = var.project_id
 }
 
+resource "google_service_account" "service_account" {
+  account_id   = "service-account-id"
+  display_name = "Service Account"
+}
+
 resource "google_cloud_scheduler_job" "mcit-capstone2-scheduler-workflow-poc" {
   project           =   var.project_id
-  name              =   ""
-  description       =   ""
-  schedule          =   ""
-  time_zone         =   ""
-  attempt_deadline  =   ""
-  region            =   ""
+  name              =   "mcit-capstone2-scheduler-workflow-export"
+  description       =   "Cron job for workflows mctit-capstone2-workflow-poc"
+  schedule          =   "* 1 * * *"
+  time_zone         =   "America/New_York"
+  attempt_deadline  =   "320s"
+  region            =   var.location
 
 
   http_target {
     http_method     =   "POST"
     uri             =   "https://workflowexecutions.googleapis.com/v1/${google_workflows_workflow.mcti-capstone2-workflow-poc.id}/executions"
+    #uri            =   "https://workflowexecutions.googleapis.com/v1/projects/mcti-project/locations/northamerica-northeast1/workflows/capston2-mcti-workflow-testing/executions"
+    body = base64encode(
+      jsonencode({
+        "argument" : null,
+        "callLogLevel" : "CALL_LOG_LEVEL_UNSPECIFIED"
+        }
+    ))
 
   oauth_token {
-    service_account_email   = ""
-    scope                   = ""
+    service_account_email   = data.google_compute_default_service_account.default.email ????
+    scope                   = "https://www.googleapis.com/auth/cloud-platform"
   }
   }
 }
 
 resource "google_workflows_workflow" "mctit-capstone2-workflow-poc" {
-  name            = ""
-  region          = ""
-  description     = ""
-  service_account = ""
-  project         = ""
-  labels          = ""
+  name            = "mctit-capstone2-workflow-poc"
+  region          = var.location
+  description     = "Export firestore data"
+  service_account = "google_service_account.service_account.id"
+  labels = {
+    env = "poc"
+  }
+  project         = var.project_id
   source_contents = templatefile("${path.root}/yamls/export.yaml")
 }
 
