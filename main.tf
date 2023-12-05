@@ -82,7 +82,7 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
     project = "mcti-capstone2-testing", 
     backupStorage = "gs://mcti-capstone2-poc", 
     firestoreID = "(default)",
-    result  = result })
+    result  = "result" })
 }
 
 resource "time_sleep" "wait_60_seconds" {
