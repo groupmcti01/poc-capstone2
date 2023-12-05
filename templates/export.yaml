@@ -11,4 +11,4 @@
         outputUriPrefix: ${backupStorage}
     result: result
 - result: 
-   return: ${result}
+    return: ${result}
