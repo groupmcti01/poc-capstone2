@@ -73,12 +73,12 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
   name            = "mctit-capstone2-workflow-poc"
   region          = var.location
   description     = "Export firestore data"
-  service_account = "google_service_account.service_account.id"
+  service_account = google_service_account.service_account.id
   labels = {
     env = "poc"
   }
   project         = var.project_id
-  source_contents = templatefile("${path.module}"+"/yamls/export.yaml",{})
+  source_contents = templatefile("yamls/export.yaml",{})
 }
 
 resource "time_sleep" "wait_60_seconds" {
