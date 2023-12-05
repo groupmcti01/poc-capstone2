@@ -36,11 +36,6 @@ data "google_compute_default_service_account" "default" {
   project = var.project_id
 }
 
-resource "google_service_account" "service-account" {
-  account_id   = "service-account-id"
-  display_name = "Service Account"
-}
-
 resource "google_cloud_scheduler_job" "mcit-capstone2-scheduler-workflow-poc" {
   project           =   var.project_id
   name              =   "mcit-capstone2-scheduler-workflow-export"
@@ -73,7 +68,7 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
   name            = "mctit-capstone2-workflow-poc"
   region          = var.location
   description     = "Export firestore data"
-  service_account = google_service_account.service-account.id
+  service_account = mcti-capstone2-poc-invoker@mcti-capstone2-testing.iam.gserviceaccount.com 
   labels = {
     env = "poc"
   }
