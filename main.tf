@@ -36,7 +36,7 @@ data "google_compute_default_service_account" "default" {
   project = var.project_id
 }
 
-resource "google_service_account" "service_account" {
+resource "google_service_account" "service-account" {
   account_id   = "service-account-id"
   display_name = "Service Account"
 }
@@ -73,7 +73,7 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
   name            = "mctit-capstone2-workflow-poc"
   region          = var.location
   description     = "Export firestore data"
-  service_account = google_service_account.service_account.id
+  service_account = google_service_account.service-account.id
   labels = {
     env = "poc"
   }
