@@ -69,7 +69,7 @@ resource "google_cloud_scheduler_job" "mcit-capstone2-scheduler-workflow-poc" {
   }
 }
 
-resource "google_workflows_workflow" "mctit-capstone2-workflow-poc" {
+resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
   name            = "mctit-capstone2-workflow-poc"
   region          = var.location
   description     = "Export firestore data"
@@ -78,7 +78,7 @@ resource "google_workflows_workflow" "mctit-capstone2-workflow-poc" {
     env = "poc"
   }
   project         = var.project_id
-  source_contents = templatefile("${path.root}/yamls/export.yaml")
+  source_contents = templatefile("${path.root}/yamls/export.yaml",{})
 }
 
 resource "time_sleep" "wait_60_seconds" {
