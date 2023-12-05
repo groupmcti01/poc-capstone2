@@ -93,12 +93,12 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
 - export:
     call: googleapis.firestore.v1.projects.databases.exportDocuments
     args:
-      name: ${"projects/" + project + "/databases/(default)"}
+      name: $${"projects/" + project + "/databases/(default)"}
       body:
-        outputUriPrefix: ${backupStorage}
+        outputUriPrefix: $${backupStorage}
     result: result
 - result: 
-    return: ${result}
+    return: $${result}
   EOF
 }
 
