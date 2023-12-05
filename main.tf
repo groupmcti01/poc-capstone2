@@ -68,7 +68,7 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
   name            = "mctit-capstone2-workflow-poc"
   region          = var.location
   description     = "Export firestore data"
-  service_account = mcti-capstone2-poc-invoker@mcti-capstone2-testing.iam.gserviceaccount.com 
+  service_account = "mcti-capstone2-poc-invoker@mcti-capstone2-testing.iam.gserviceaccount.com"
   labels = {
     env = "poc"
   }
