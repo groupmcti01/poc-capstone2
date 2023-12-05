@@ -36,7 +36,7 @@ data "google_compute_default_service_account" "default" {
   project = var.project_id
 }
 
-resource "google_cloud_scheduler_job" "mcit-capstone2-scheduler-workflow" {
+resource "google_cloud_scheduler_job" "mcit-capstone2-scheduler-workflow-poc" {
   project           =   var.project_id
   name              =   ""
   description       =   ""
@@ -48,7 +48,7 @@ resource "google_cloud_scheduler_job" "mcit-capstone2-scheduler-workflow" {
 
   http_target {
     http_method     =   "POST"
-    uri             =   "https://workflowexecutions.googleapis.com/v1/${google_workflows_workflow.mcti-capstone2-workflow.id}/executions"
+    uri             =   "https://workflowexecutions.googleapis.com/v1/${google_workflows_workflow.mcti-capstone2-workflow-poc.id}/executions"
 
   oauth_token {
     service_account_email   = ""
@@ -57,7 +57,7 @@ resource "google_cloud_scheduler_job" "mcit-capstone2-scheduler-workflow" {
   }
 }
 
-resource "google_workflows_workflow" "workflow" {
+resource "google_workflows_workflow" "mctit-capstone2-workflow-poc" {
   name            = ""
   region          = ""
   description     = ""
@@ -66,3 +66,26 @@ resource "google_workflows_workflow" "workflow" {
   labels          = ""
   source_contents = ""
 }
+
+resource "time_sleep" "wait_60_seconds" {
+  create_duration = "60s"
+}
+
+resource "google_project_service" "mctit-capstone2-firestore-poc" {
+  project 	= var.project_id
+  service 	= "firestore.googleapis.com"
+
+  depends_on 	= [time_sleep.wait_60_seconds]
+}
+
+resource "google_firestore_database" "database" {
+  project     			        = var.project_id
+  name        			        = "(default)"
+  location_id 			        = "northamerica-northeast1"
+  type        			        = "FIRESTORE_NATIVE"
+  concurrency_mode		        = "OPTIMISTIC"
+  app_engine_integration_mode 	= "DISABLED"
+
+  depends_on 			= [google_project_service.mctit-capstone2-firestore-poc]
+}
+
