@@ -81,7 +81,8 @@ resource "google_workflows_workflow" "mcti-capstone2-workflow-poc" {
   source_contents = templatefile("${path.root}/templates/export.yaml",{ 
     project = "mcti-capstone2-testing", 
     backupStorage = "gs://mcti-capstone2-poc", 
-    firestoreID = "(default)"})
+    firestoreID = "(default)",
+    result  = result })
 }
 
 resource "time_sleep" "wait_60_seconds" {
